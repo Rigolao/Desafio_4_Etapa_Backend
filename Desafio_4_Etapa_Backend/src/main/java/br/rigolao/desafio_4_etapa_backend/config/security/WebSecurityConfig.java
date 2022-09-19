@@ -24,13 +24,12 @@ public class WebSecurityConfig {
 
     private final AutenticacaoFilter autenticacaoFilter;
 
-    private final AuthenticationConfiguration authenticationConfiguration;
 
     @Autowired
-    public WebSecurityConfig(AuthenticationEntryPointImp authenticationEntryPointImp, AutenticacaoFilter autenticacaoFilter, AuthenticationConfiguration authenticationConfiguration) {
+    public WebSecurityConfig(AuthenticationEntryPointImp authenticationEntryPointImp, AutenticacaoFilter autenticacaoFilter,
+                             AuthenticationConfiguration authenticationConfiguration) {
         this.authenticationEntryPointImp = authenticationEntryPointImp;
         this.autenticacaoFilter = autenticacaoFilter;
-        this.authenticationConfiguration = authenticationConfiguration;
     }
 
     @Bean
@@ -38,7 +37,7 @@ public class WebSecurityConfig {
         http.httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/autorizacao/autenticar").permitAll()
+                .antMatchers("/autorizacao/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()

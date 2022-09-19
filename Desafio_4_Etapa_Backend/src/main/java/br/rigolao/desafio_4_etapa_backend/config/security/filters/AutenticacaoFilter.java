@@ -2,6 +2,7 @@ package br.rigolao.desafio_4_etapa_backend.config.security.filters;
 
 import br.rigolao.desafio_4_etapa_backend.config.security.CpfSenhaAuthenticationToken;
 import br.rigolao.desafio_4_etapa_backend.config.security.utils.JwtTokenUtil;
+import br.rigolao.desafio_4_etapa_backend.exceptions.TokenExpiradoException;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
 import br.rigolao.desafio_4_etapa_backend.services.AutenticacaoService;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -41,15 +42,14 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
                 cpf = jwtTokenUtil.getSubjectFromToken(token);
                 System.out.println(token);
             } catch (IllegalArgumentException e) {
-                System.out.println("Impossibilitado de adquirir o token JWT");
+                throw new IllegalArgumentException();
             } catch (ExpiredJwtException e) {
-                System.out.println("Token JWT expirado");
+                throw new TokenExpiradoException();
             }
         }
 
         if(cpf != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            CientistaModel cientistaModel = autenticacaoService.loadUserByCpf(
-                    jwtTokenUtil.getSubjectFromToken(cpf));
+            CientistaModel cientistaModel = autenticacaoService.loadUserByCpf(cpf);
 
             if(jwtTokenUtil.tokenIsValid(token, cientistaModel)){ //Cria um novo token quando usuário estiver autorizado
                 String newToken = jwtTokenUtil.generateToken(new HashMap<>(), cientistaModel.getCpf());

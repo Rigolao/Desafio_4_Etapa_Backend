@@ -14,4 +14,8 @@ public class Desafio4EtapaBackendApplication {
         SpringApplication.run(Desafio4EtapaBackendApplication.class, args);
     }
 
+    @GetMapping("/")
+    public ResponseEntity<Object> oi(){
+        return ResponseEntity.ok("Oi");
+    }
 }

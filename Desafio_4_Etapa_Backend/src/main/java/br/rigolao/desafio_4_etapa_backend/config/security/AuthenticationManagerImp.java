@@ -12,7 +12,6 @@ public class AuthenticationManagerImp implements AuthenticationManager {
     @Autowired
     private AuthenticationProviderImp athenticationProviderImp;
 
-
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         return athenticationProviderImp.authenticate(authentication);

@@ -39,7 +39,7 @@ public class JwtTokenUtil implements Serializable {
         return claimsResolver.apply(claims);
     }
 
-    //Deoda o token de acordo com o segredo
+    //Decoda o token de acordo com o segredo
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
@@ -60,12 +60,7 @@ public class JwtTokenUtil implements Serializable {
 
 
     //Valida o token
-    private Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = getSubjectFromToken(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
-    }
-
     public Boolean tokenIsValid(String token, CientistaModel cientistaModel) {
-        return !isTokenExpired(token) && getSubjectFromToken(token).equals(cientistaModel.getCpf().toString());
+        return !isTokenExpired(token) && getSubjectFromToken(token).equals(cientistaModel.getCpf());
     }
 }
