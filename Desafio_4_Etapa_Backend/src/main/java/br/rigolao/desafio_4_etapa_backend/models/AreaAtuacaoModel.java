@@ -21,11 +21,13 @@ public class AreaAtuacaoModel implements Serializable {
     @Id
     @Column(name = "id_area_atuacao")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter @Setter
+    @Getter
+    @Setter
     private Integer id;
 
     @Column(name = "nom_area_atuacao", nullable = false)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String nome;
 
 }

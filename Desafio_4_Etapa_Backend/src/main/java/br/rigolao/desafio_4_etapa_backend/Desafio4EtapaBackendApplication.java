@@ -15,7 +15,7 @@ public class Desafio4EtapaBackendApplication {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Object> oi(){
+    public ResponseEntity<Object> oi() {
         return ResponseEntity.ok("Oi");
     }
 }

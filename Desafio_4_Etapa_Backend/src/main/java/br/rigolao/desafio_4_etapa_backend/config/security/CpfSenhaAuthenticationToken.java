@@ -1,7 +1,5 @@
 package br.rigolao.desafio_4_etapa_backend.config.security;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 

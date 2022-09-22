@@ -2,19 +2,19 @@ package br.rigolao.desafio_4_etapa_backend.controllers;
 
 import br.rigolao.desafio_4_etapa_backend.config.security.CpfSenhaAuthenticationToken;
 import br.rigolao.desafio_4_etapa_backend.config.security.utils.JwtTokenUtil;
+import br.rigolao.desafio_4_etapa_backend.dtos.CientistaDTO;
 import br.rigolao.desafio_4_etapa_backend.dtos.LoginDTO;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
 import br.rigolao.desafio_4_etapa_backend.services.AutenticacaoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 
 @RestController
@@ -37,7 +37,7 @@ public class AutenticacaoController {
     }
 
     @PostMapping(value = "/autenticar")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginDTO login) {
+    public ResponseEntity<?> login(@RequestBody @Valid LoginDTO login) {
 
         authenticationManager.authenticate(new CpfSenhaAuthenticationToken(login.getCpf(),
                 login.getSenha(), false));
@@ -50,6 +50,13 @@ public class AutenticacaoController {
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(jwtToken);
+    }
+
+    @PostMapping(value = "/cadastro")
+    public ResponseEntity<?> cadastro(@RequestBody @Valid CientistaDTO cientistaDTO) {
+        CientistaModel cientista = new CientistaModel();
+        BeanUtils.copyProperties(cientistaDTO, cientista);
+        return ResponseEntity.status(HttpStatus.CREATED).body(autenticacaoService.saveCientista(cientista));
     }
 
 

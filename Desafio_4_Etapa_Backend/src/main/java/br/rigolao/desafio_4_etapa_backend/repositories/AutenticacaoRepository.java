@@ -8,7 +8,8 @@ import java.util.Optional;
 
 @Repository
 public interface AutenticacaoRepository extends JpaRepository<CientistaModel, String> {
-
     Optional<CientistaModel> findByCpf(String cpf);
+
+    boolean existsByCpf(String cpf);
 
 }

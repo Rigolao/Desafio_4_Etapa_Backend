@@ -1,5 +1,10 @@
 package br.rigolao.desafio_4_etapa_backend.models.formacao;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serial;
@@ -7,32 +12,22 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
 public class FormacaoId implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Getter
+    @Setter
     @Column(name = "id_cientista")
     private Integer idCientista;
 
+    @Getter
+    @Setter
     @Column(name = "id_titulacao")
     private Integer idTitulacao;
-
-    public Integer getIdCientista() {
-        return idCientista;
-    }
-
-    public void setIdCientista(Integer idCientista) {
-        this.idCientista = idCientista;
-    }
-
-    public Integer getIdTitulacao() {
-        return idTitulacao;
-    }
-
-    public void setIdTitulacao(Integer idTitulacao) {
-        this.idTitulacao = idTitulacao;
-    }
 
     @Override
     public boolean equals(Object o) {

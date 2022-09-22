@@ -22,33 +22,40 @@ public class ProjetoModel implements Serializable {
     @Id
     @Column(name = "id_projeto")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter @Setter
+    @Getter
+    @Setter
     private Integer id;
 
     @ManyToOne
-    @Getter @Setter
+    @Getter
+    @Setter
     @JoinColumn(name = "id_cientista",
             referencedColumnName = "id_cientista")
     private CientistaModel cientista;
 
     @Column(name = "tit_projeto", length = 50)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String titulo;
 
     @Column(name = "res_projeto", length = 250)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String sobre;
 
     @Column(name = "dti_projeto")
-    @Getter @Setter
+    @Getter
+    @Setter
     private Date dataInicio;
 
     @Column(name = "dtt_projeto")
-    @Getter @Setter
+    @Getter
+    @Setter
     private Date dataTermino;
 
     @Column(name = "pub_projeto", nullable = false)
-    @Getter @Setter
+    @Getter
+    @Setter
     private Boolean publico;
 
 }

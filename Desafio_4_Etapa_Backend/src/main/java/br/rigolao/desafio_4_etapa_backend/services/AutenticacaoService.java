@@ -1,5 +1,6 @@
 package br.rigolao.desafio_4_etapa_backend.services;
 
+import br.rigolao.desafio_4_etapa_backend.exceptions.CientistaJaCadastradoException;
 import br.rigolao.desafio_4_etapa_backend.exceptions.UsuarioNaoEncontradoException;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
 import br.rigolao.desafio_4_etapa_backend.repositories.AutenticacaoRepository;
@@ -34,5 +35,13 @@ public class AutenticacaoService implements UserDetailsService {
                 cientista.getDataNascimento(), cientista.getEmail(), cientista.getEmailAlternativo(),
                 cientista.getLattes(), cientista.getSnh(), cientista.getRedesSociais(), cientista.getFormacoes(),
                 cientista.getTelefones(), cientista.getAreaAtuacaoCientista(), cientista.getProjeto());
+    }
+
+    @Transactional
+    public CientistaModel saveCientista(CientistaModel cientista) {
+        if (autenticacaoRepository.existsByCpf(cientista.getCpf())) {
+            throw new CientistaJaCadastradoException();
+        }
+        return autenticacaoRepository.save(cientista);
     }
 }

@@ -21,21 +21,25 @@ public class RedesSociaisModel implements Serializable {
     @Id
     @Column(name = "id_rede_social")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter @Setter
+    @Getter
+    @Setter
     private Integer id;
 
     @ManyToOne
-    @Getter @Setter
+    @Getter
+    @Setter
     @JoinColumn(name = "id_cientista",
             referencedColumnName = "id_cientista")
     private CientistaModel cientista;
 
     @Column(name = "end_rede_social", length = 50)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String endereco;
 
     @Column(name = "tip_rede_social", length = 1)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String tipoRede;
 
 }

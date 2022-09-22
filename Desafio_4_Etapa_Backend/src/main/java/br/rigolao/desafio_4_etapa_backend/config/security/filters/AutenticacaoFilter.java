@@ -37,8 +37,8 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
         final String token = request.getHeader("Authorization");
         String cpf = null;
 
-        if(token != null) {
-            try{
+        if (token != null) {
+            try {
                 cpf = jwtTokenUtil.getSubjectFromToken(token);
                 System.out.println(token);
             } catch (IllegalArgumentException e) {
@@ -48,10 +48,10 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
             }
         }
 
-        if(cpf != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (cpf != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             CientistaModel cientistaModel = autenticacaoService.loadUserByCpf(cpf);
 
-            if(jwtTokenUtil.tokenIsValid(token, cientistaModel)){ //Cria um novo token quando usuário estiver autorizado
+            if (jwtTokenUtil.tokenIsValid(token, cientistaModel)) { //Cria um novo token quando usuário estiver autorizado
                 String newToken = jwtTokenUtil.generateToken(new HashMap<>(), cientistaModel.getCpf());
                 response.setHeader("Authorization", newToken);
                 System.out.println(newToken);

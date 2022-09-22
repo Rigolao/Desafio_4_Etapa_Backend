@@ -21,10 +21,12 @@ public class TitulacaoModel implements Serializable {
     @Id
     @Column(name = "id_titulacao")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter @Setter
+    @Getter
+    @Setter
     private Integer id;
 
     @Column(name = "nom_titulacao", nullable = false)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String nome;
 }

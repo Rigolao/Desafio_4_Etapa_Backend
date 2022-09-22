@@ -7,13 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +18,7 @@ import java.util.List;
 @Table(name = "CIENTISTA")
 @AllArgsConstructor
 @NoArgsConstructor
-public class CientistaModel implements Serializable, UserDetails {
+public class CientistaModel implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -29,89 +26,68 @@ public class CientistaModel implements Serializable, UserDetails {
     @Id
     @Column(name = "id_cientista")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter @Setter
+    @Getter
+    @Setter
     private Integer id;
 
     @Column(name = "nom_cientista", length = 50)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String nome;
 
     @Column(name = "cpf_cientista", length = 11, nullable = false, unique = true)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String cpf;
 
     @Column(name = "dtn_cientista")
-    @Getter @Setter
+    @Getter
+    @Setter
     private Date dataNascimento;
 
     @Column(name = "email_cientista", length = 50, nullable = false)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String email;
 
     @Column(name = "email_cientista_alternativo", length = 50)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String emailAlternativo;
 
     @Column(name = "lattes_cientista", length = 50, nullable = false)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String lattes;
 
     @Column(name = "snh_cientista", length = 10, nullable = false)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String snh;
 
     @OneToMany(mappedBy = "cientista")
-    @Getter @Setter
+    @Getter
+    @Setter
     private List<RedesSociaisModel> redesSociais;
 
     @OneToMany(mappedBy = "cientista")
-    @Getter @Setter
+    @Getter
+    @Setter
     private List<FormacaoModel> formacoes;
 
     @OneToMany(mappedBy = "cientista")
-    @Getter @Setter
+    @Getter
+    @Setter
     private List<TelefoneModel> telefones;
 
     @OneToMany(mappedBy = "cientista")
-    @Getter @Setter
+    @Getter
+    @Setter
     private List<AreaAtuacaoCientistaModel> areaAtuacaoCientista;
 
     @OneToMany(mappedBy = "cientista")
-    @Getter @Setter
+    @Getter
+    @Setter
     private List<ProjetoModel> projeto;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
+    
 }
