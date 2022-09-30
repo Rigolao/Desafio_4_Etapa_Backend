@@ -24,7 +24,8 @@ public class CientistaModel implements Serializable {
 
     @Id
     @Column(name = "id_cientista")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cientista_sequence")
+    @SequenceGenerator(name = "cientista_sequence", sequenceName = "cientista_sequence", allocationSize = 1)
     private Integer id;
 
     @Column(name = "nom_cientista", length = 50)
@@ -39,7 +40,7 @@ public class CientistaModel implements Serializable {
     @Column(name = "email_cientista", length = 50, nullable = false)
     private String email;
 
-    @Column(name = "email_cientista_alternativo", length = 50)
+    @Column(name = "email_alternativo_cientista", length = 50)
     private String emailAlternativo;
 
     @Column(name = "lattes_cientista", length = 50, nullable = false)

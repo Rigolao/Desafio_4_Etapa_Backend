@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public final class LoginDTO {
+public class LoginDTO {
 
     @NotBlank(message = "CPF é necessário")
     private String cpf;

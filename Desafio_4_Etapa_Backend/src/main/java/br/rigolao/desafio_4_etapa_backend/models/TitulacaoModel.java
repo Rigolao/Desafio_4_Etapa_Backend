@@ -19,7 +19,8 @@ public class TitulacaoModel implements Serializable {
 
     @Id
     @Column(name = "id_titulacao")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "titulacao_sequence")
+    @SequenceGenerator(name = "titulacao_sequence", sequenceName = "titulacao_sequence", allocationSize = 1)
     private Integer id;
 
     @Column(name = "nom_titulacao", nullable = false)

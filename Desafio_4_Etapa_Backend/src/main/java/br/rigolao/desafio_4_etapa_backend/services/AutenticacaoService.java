@@ -4,6 +4,7 @@ import br.rigolao.desafio_4_etapa_backend.exceptions.CientistaJaCadastradoExcept
 import br.rigolao.desafio_4_etapa_backend.exceptions.UsuarioNaoEncontradoException;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
 import br.rigolao.desafio_4_etapa_backend.repositories.AutenticacaoRepository;
+import br.rigolao.desafio_4_etapa_backend.utils.LogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-public class AutenticacaoService implements UserDetailsService {
+public class AutenticacaoService extends LogUtil implements UserDetailsService {
 
     private final AutenticacaoRepository autenticacaoRepository;
 
@@ -42,6 +43,7 @@ public class AutenticacaoService implements UserDetailsService {
         if (autenticacaoRepository.existsByCpf(cientista.getCpf())) {
             throw new CientistaJaCadastradoException();
         }
+        logInfo("Usuário salvo no banco de dados");
         return autenticacaoRepository.save(cientista);
     }
 }

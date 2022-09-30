@@ -19,7 +19,8 @@ public class AreaAtuacaoModel implements Serializable {
 
     @Id
     @Column(name = "id_area_atuacao")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "area_atuacao_sequence")
+    @SequenceGenerator(name = "area_atuacao_sequence", sequenceName = "area_atuacao_sequence", allocationSize = 1)
     private Integer id;
 
     @Column(name = "nom_area_atuacao", nullable = false)

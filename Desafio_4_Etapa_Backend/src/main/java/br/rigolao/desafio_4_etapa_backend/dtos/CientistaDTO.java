@@ -9,7 +9,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public final class CientistaDTO {
+public class CientistaDTO {
 
     private Integer id;
 

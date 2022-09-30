@@ -19,7 +19,8 @@ public class RedesSociaisModel implements Serializable {
 
     @Id
     @Column(name = "id_rede_social")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "redes_sociais_sequence")
+    @SequenceGenerator(name = "redes_sociais_sequence", sequenceName = "redes_sociais_sequence", allocationSize = 1)
     private Integer id;
 
     @ManyToOne

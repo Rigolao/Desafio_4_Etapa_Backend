@@ -20,7 +20,8 @@ public class ProjetoModel implements Serializable {
 
     @Id
     @Column(name = "id_projeto")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "projeto_sequence")
+    @SequenceGenerator(name = "projeto_sequence", sequenceName = "projeto_sequence", allocationSize = 1)
     private Integer id;
 
     @ManyToOne
