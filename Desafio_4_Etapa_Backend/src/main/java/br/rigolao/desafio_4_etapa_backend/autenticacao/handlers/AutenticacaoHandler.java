@@ -1,4 +1,4 @@
-package br.rigolao.desafio_4_etapa_backend.handlers;
+package br.rigolao.desafio_4_etapa_backend.autenticacao.handlers;
 
 import br.rigolao.desafio_4_etapa_backend.exceptions.CientistaJaCadastradoException;
 import br.rigolao.desafio_4_etapa_backend.exceptions.SenhaInvalidaException;

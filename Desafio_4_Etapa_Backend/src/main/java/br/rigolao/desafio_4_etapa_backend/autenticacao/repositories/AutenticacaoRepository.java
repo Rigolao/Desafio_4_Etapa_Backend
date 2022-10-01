@@ -1,4 +1,4 @@
-package br.rigolao.desafio_4_etapa_backend.repositories;
+package br.rigolao.desafio_4_etapa_backend.autenticacao.repositories;
 
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
 import org.springframework.data.jpa.repository.JpaRepository;

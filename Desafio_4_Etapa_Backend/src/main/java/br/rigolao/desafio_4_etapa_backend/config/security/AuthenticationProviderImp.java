@@ -3,7 +3,7 @@ package br.rigolao.desafio_4_etapa_backend.config.security;
 import br.rigolao.desafio_4_etapa_backend.exceptions.SenhaInvalidaException;
 import br.rigolao.desafio_4_etapa_backend.exceptions.UsuarioNaoEncontradoException;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
-import br.rigolao.desafio_4_etapa_backend.repositories.AutenticacaoRepository;
+import br.rigolao.desafio_4_etapa_backend.autenticacao.repositories.AutenticacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;

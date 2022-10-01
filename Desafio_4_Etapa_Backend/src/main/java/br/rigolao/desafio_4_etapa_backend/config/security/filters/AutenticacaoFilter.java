@@ -4,7 +4,7 @@ import br.rigolao.desafio_4_etapa_backend.config.security.CpfSenhaAuthentication
 import br.rigolao.desafio_4_etapa_backend.config.security.utils.JwtTokenUtil;
 import br.rigolao.desafio_4_etapa_backend.exceptions.TokenExpiradoException;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
-import br.rigolao.desafio_4_etapa_backend.services.AutenticacaoService;
+import br.rigolao.desafio_4_etapa_backend.autenticacao.services.AutenticacaoService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
