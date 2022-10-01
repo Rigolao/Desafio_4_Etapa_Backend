@@ -59,6 +59,7 @@ public class AutenticacaoController extends LogUtil {
     public ResponseEntity<?> cadastro(@RequestBody @Valid CientistaDTO cientistaDTO) {
         CientistaModel cientista = new CientistaModel();
         BeanUtils.copyProperties(cientistaDTO, cientista);
+        logInfo("Cientista tentando cadastro.");
         return ResponseEntity.status(HttpStatus.CREATED).body(autenticacaoService.saveCientista(cientista));
     }
 

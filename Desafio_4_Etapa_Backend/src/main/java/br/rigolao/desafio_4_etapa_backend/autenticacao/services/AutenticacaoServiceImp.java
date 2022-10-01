@@ -44,7 +44,7 @@ public class AutenticacaoServiceImp extends LogUtil implements UserDetailsServic
         if (autenticacaoRepository.existsByCpf(cientista.getCpf())) {
             throw new CientistaJaCadastradoException();
         }
-        logInfo("Usuário salvo no banco de dados");
+        logInfo("Cientista salvo no banco de dados");
         return autenticacaoRepository.save(cientista);
     }
 
