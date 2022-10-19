@@ -41,6 +41,7 @@ public class ProjetoModel implements Serializable {
     @Column(name = "dtt_projeto")
     private Date dataTermino;
 
+    //O hibernate ja faz a transformação para numeric(0, 1) do oracle
     @Column(name = "pub_projeto", nullable = false)
     private Boolean publico;
 

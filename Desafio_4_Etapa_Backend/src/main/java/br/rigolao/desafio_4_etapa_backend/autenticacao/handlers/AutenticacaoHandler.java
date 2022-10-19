@@ -81,9 +81,4 @@ public class AutenticacaoHandler extends ResponseEntityExceptionHandler {
                 HttpStatus.EXPECTATION_FAILED);
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Object> handleGenericError(RuntimeException ex) {
-        return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
 }

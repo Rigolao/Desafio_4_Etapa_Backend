@@ -7,3 +7,8 @@ public abstract class LogUtil<T> {
     }
 
 }
+
+
+
+
+//log4j
