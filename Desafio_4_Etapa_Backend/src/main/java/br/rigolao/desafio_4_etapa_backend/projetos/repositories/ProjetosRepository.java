@@ -9,9 +9,11 @@ import java.util.Optional;
 
 public interface ProjetosRepository extends JpaRepository<ProjetoModel, Integer> {
 
-    Optional<ProjetoModel> findProjetoModelsByCientista(CientistaModel cientista);
+    Optional<ProjetoModel> findProjetoModelByCientista(CientistaModel cientista);
 
-    Optional<ProjetoModel> findAllByCientistaAndPublico(CientistaModel cientista, Boolean publico);
+    Optional<List<ProjetoModel>> findAllByCientista(CientistaModel cientista);
+
+    Optional<List<ProjetoModel>> findAllByCientistaAndPublico(CientistaModel cientista, Boolean publico);
 
     Optional<List<ProjetoModel>> findAllByPublico(Boolean publico);
 }
