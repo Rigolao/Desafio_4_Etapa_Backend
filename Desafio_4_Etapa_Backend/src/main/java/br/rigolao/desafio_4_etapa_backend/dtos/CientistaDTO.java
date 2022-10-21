@@ -5,6 +5,8 @@ import lombok.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -31,5 +33,7 @@ public class CientistaDTO {
 
     @NotBlank(message = "Senha é obrigatória")
     private String snh;
+
+    private List<AreaAtuacaoDTO> areaAtuacaoCientista;
 
 }
