@@ -75,10 +75,4 @@ public class AutenticacaoHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Object> handleIllegalArgumentException() {
-        return new ResponseEntity<>(_fillErrorBodyMessage("Erro ao adquirir o token JWT, tente novamente!"),
-                HttpStatus.EXPECTATION_FAILED);
-    }
-
 }

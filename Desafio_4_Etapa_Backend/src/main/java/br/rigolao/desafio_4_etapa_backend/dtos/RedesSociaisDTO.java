@@ -6,15 +6,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AreaAtuacaoDTO {
+public class RedesSociaisDTO {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer id;
 
-    private String nome;
+    private String endereco;
+
+    private String tipoRede;
 
 }
