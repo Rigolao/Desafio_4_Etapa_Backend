@@ -49,4 +49,6 @@ public class CientistaDTO {
 
     private List<TelefoneDTO> telefones;
 
+    private List<ProjetoDTO> projetos;
+
 }

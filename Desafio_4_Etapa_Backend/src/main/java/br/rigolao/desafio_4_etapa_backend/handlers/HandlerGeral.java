@@ -1,5 +1,6 @@
 package br.rigolao.desafio_4_etapa_backend.handlers;
 
+import br.rigolao.desafio_4_etapa_backend.exceptions.SemPermissaoException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,11 @@ public class HandlerGeral extends ResponseEntityExceptionHandler {
         body.put("timestamp", LocalDateTime.now());
         body.put("message", message);
         return body;
+    }
+
+    @ExceptionHandler(SemPermissaoException.class)
+    public ResponseEntity<Object> handleSemPermissaoException(SemPermissaoException ex) {
+        return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Exception.class)

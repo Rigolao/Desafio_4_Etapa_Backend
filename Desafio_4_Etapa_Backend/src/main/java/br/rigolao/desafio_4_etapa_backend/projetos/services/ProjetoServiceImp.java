@@ -1,5 +1,8 @@
 package br.rigolao.desafio_4_etapa_backend.projetos.services;
 
+import br.rigolao.desafio_4_etapa_backend.exceptions.ProjetoNaoEncontradoException;
+import br.rigolao.desafio_4_etapa_backend.exceptions.SemPermissaoException;
+import br.rigolao.desafio_4_etapa_backend.exceptions.UsuarioNaoEncontradoException;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
 import br.rigolao.desafio_4_etapa_backend.models.ProjetoModel;
 import br.rigolao.desafio_4_etapa_backend.projetos.repositories.ProjetosRepository;
@@ -29,7 +32,6 @@ public class ProjetoServiceImp implements ProjetosService{
     }
 
     @Override
-    @Transactional
     public void saveProjeto(ProjetoModel projeto) {
         projetosRepository.save(projeto);
     }
@@ -38,5 +40,19 @@ public class ProjetoServiceImp implements ProjetosService{
     public List<ProjetoModel> retornarMeusProjetos(CientistaModel cientista) {
         Optional<List<ProjetoModel>> listaProjetos = projetosRepository.findAllByCientista(cientista);
         return listaProjetos.orElse(Collections.emptyList());
+    }
+
+    @Override
+    public ProjetoModel retornaMeuProjeto(Integer id, CientistaModel cientista) {
+        Optional<ProjetoModel> projetoModel = projetosRepository.findProjetoModelByIdAndCientista(id, cientista);
+
+        if(projetoModel.isPresent()){
+            if (!projetoModel.get().getCientista().getCpf().equals(cientista.getCpf())){
+                throw new SemPermissaoException("Esse projeto não pode ser editado por você!");
+            }
+            return projetoModel.get();
+        } else {
+            throw new ProjetoNaoEncontradoException();
+        }
     }
 }

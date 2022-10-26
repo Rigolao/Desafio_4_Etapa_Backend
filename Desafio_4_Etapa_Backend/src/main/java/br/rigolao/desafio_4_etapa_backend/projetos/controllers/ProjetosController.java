@@ -7,6 +7,7 @@ import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
 import br.rigolao.desafio_4_etapa_backend.models.ProjetoModel;
 import br.rigolao.desafio_4_etapa_backend.projetos.services.ProjetoServiceImp;
 import br.rigolao.desafio_4_etapa_backend.utils.LogUtil;
+import br.rigolao.desafio_4_etapa_backend.utils.ObjectMapperUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.function.ServerRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("*")
@@ -39,28 +41,20 @@ public class ProjetosController extends LogUtil {
 
     @GetMapping(value = "/todosProjetos")
     public ResponseEntity<?> retornaTodosProjetos() {
-        List<ProjetoDTO> listaProjetos = new ArrayList<>();
-        projetoService.findAllProjects().forEach(projetoModel -> {
-            ProjetoDTO projetoTemp = new ProjetoDTO();
-            BeanUtils.copyProperties(projetoModel, projetoTemp);
-            BeanUtils.copyProperties(projetoModel.getCientista(), projetoTemp);
-            listaProjetos.add(projetoTemp);
-        });
         logInfo("Retornando todos os projetos");
-        return ResponseEntity.ok(listaProjetos);
+        return ResponseEntity.ok(_carregarProjetos(projetoService.findAllProjects()));
     }
 
     @PostMapping(value = "/cadastrarProjeto")
     public ResponseEntity<?> cadastrarProjeto(
-            @RequestHeader("Authorization") String token, @RequestBody @Valid ProjetoDTO projeto){
+            @RequestHeader("Authorization") String token, @RequestBody @Valid ProjetoDTO projeto) {
         String cpf = jwtTokenUtil.getSubjectFromToken(token);
         CientistaModel cientista = autenticacaoService.loadUserByCpf(cpf);
-        ProjetoModel projetoModel = new ProjetoModel();
-        BeanUtils.copyProperties(projeto, projetoModel);
+        ProjetoModel projetoModel = ObjectMapperUtil.map(projeto, ProjetoModel.class);
         projetoModel.setCientista(cientista);
         projetoService.saveProjeto(projetoModel);
         logInfo("Projeto do cientista " + cientista.getNome() + " com o nome "
-            + projetoModel.getTitulo() + " cadastrado com sucesso!");
+                + projetoModel.getTitulo() + " cadastrado com sucesso!");
         return ResponseEntity.ok("Projeto cadastrado com sucesso!");
     }
 
@@ -68,15 +62,29 @@ public class ProjetosController extends LogUtil {
     public ResponseEntity<?> meusProjetos(@RequestHeader("Authorization") String token) {
         String cpf = jwtTokenUtil.getSubjectFromToken(token);
         CientistaModel cientista = autenticacaoService.loadUserByCpf(cpf);
-        List<ProjetoDTO> listaProjetos = new ArrayList<>();
-        projetoService.retornarMeusProjetos(cientista).forEach(projetoModel -> {
-            ProjetoDTO projetoTemp = new ProjetoDTO();
-            BeanUtils.copyProperties(projetoModel, projetoTemp);
-            BeanUtils.copyProperties(projetoModel.getCientista(), projetoTemp);
-            listaProjetos.add(projetoTemp);
-        });
         logInfo("Retornando todos os projetos do cientista " + cientista.getNome());
-        return ResponseEntity.ok(listaProjetos);
+        return ResponseEntity.ok(_carregarProjetos(projetoService.retornarMeusProjetos(cientista)));
+    }
+
+    @PutMapping(value = "/editarProjeto/{id}")
+    public ResponseEntity<?> editarProjeto(
+            @PathVariable(value = "id") Integer id, @RequestHeader("Authorization") String token,
+            @RequestBody @Valid ProjetoDTO projeto) {
+        String cpf = jwtTokenUtil.getSubjectFromToken(token);
+        CientistaModel cientista = autenticacaoService.loadUserByCpf(cpf);
+        ProjetoModel meuProjeto = projetoService.retornaMeuProjeto(id, cientista);
+        BeanUtils.copyProperties(projeto, meuProjeto, "id");
+        projetoService.saveProjeto(meuProjeto);
+        logInfo("Projeto de nome: " + meuProjeto.getTitulo() + " alterado!");
+        return ResponseEntity.ok("Projeto editado com sucesso!");
+    }
+
+    private List<ProjetoDTO> _carregarProjetos(List<ProjetoModel> projetoModels) {
+        return projetoModels.stream().map(projetoModel -> {
+            ProjetoDTO projetoDTO = ObjectMapperUtil.map(projetoModel, ProjetoDTO.class);
+            BeanUtils.copyProperties(projetoModel.getCientista(), projetoDTO);
+            return projetoDTO;
+        }).collect(Collectors.toList());
     }
 
 }
