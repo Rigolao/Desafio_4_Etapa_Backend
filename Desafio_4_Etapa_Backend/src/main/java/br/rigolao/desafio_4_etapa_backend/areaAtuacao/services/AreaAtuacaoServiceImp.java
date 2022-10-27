@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class AreaAtuacaoServiceImp implements AreaAtuacaoService{
 
-    private AreaAtuacaoRepository areaAtuacaoRepository;
+    private final AreaAtuacaoRepository areaAtuacaoRepository;
 
     @Autowired
     public AreaAtuacaoServiceImp(AreaAtuacaoRepository areaAtuacaoRepository) {

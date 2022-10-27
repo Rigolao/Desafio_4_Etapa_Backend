@@ -10,13 +10,10 @@ import br.rigolao.desafio_4_etapa_backend.utils.LogUtil;
 import br.rigolao.desafio_4_etapa_backend.utils.ObjectMapperUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.ServerRequest;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,11 +22,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/projetos")
 public class ProjetosController extends LogUtil {
 
-    private ProjetoServiceImp projetoService;
+    private final ProjetoServiceImp projetoService;
 
-    private JwtTokenUtil jwtTokenUtil;
+    private final JwtTokenUtil jwtTokenUtil;
 
-    private AutenticacaoServiceImp autenticacaoService;
+    private final AutenticacaoServiceImp autenticacaoService;
 
     @Autowired
     public ProjetosController(

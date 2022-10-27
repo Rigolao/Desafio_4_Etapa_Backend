@@ -21,9 +21,9 @@ import java.util.HashMap;
 @Component
 public class AutenticacaoFilter extends OncePerRequestFilter {
 
-    private AutenticacaoService autenticacaoService;
+    private final AutenticacaoService autenticacaoService;
 
-    private JwtTokenUtil jwtTokenUtil;
+    private final JwtTokenUtil jwtTokenUtil;
 
     @Autowired
     public AutenticacaoFilter(AutenticacaoService autenticacaoService, JwtTokenUtil jwtTokenUtil) {

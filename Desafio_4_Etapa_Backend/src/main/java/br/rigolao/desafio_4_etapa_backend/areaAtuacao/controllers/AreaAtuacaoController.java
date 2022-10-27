@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/areaAtuacao")
 public class AreaAtuacaoController {
 
-    private AreaAtuacaoService areaAtuacaoService;
+    private final AreaAtuacaoService areaAtuacaoService;
 
     @Autowired
     public AreaAtuacaoController(AreaAtuacaoService areaAtuacaoService) {

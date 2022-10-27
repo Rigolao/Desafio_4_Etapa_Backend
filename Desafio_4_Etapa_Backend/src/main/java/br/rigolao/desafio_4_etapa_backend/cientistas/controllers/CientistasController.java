@@ -7,13 +7,15 @@ import br.rigolao.desafio_4_etapa_backend.models.ProjetoModel;
 import br.rigolao.desafio_4_etapa_backend.models.RedesSociaisModel;
 import br.rigolao.desafio_4_etapa_backend.models.areaAtuacaoCientista.AreaAtuacaoCientistaModel;
 import br.rigolao.desafio_4_etapa_backend.models.formacao.FormacaoModel;
-import br.rigolao.desafio_4_etapa_backend.models.telefone.TelefoneId;
 import br.rigolao.desafio_4_etapa_backend.models.telefone.TelefoneModel;
 import br.rigolao.desafio_4_etapa_backend.utils.ObjectMapperUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -66,7 +68,7 @@ public class CientistasController {
 
     private List<TelefoneDTO> _preencherTelefones(List<TelefoneModel> telefoneModels) {
         return ObjectMapperUtil.mapAll(
-                telefoneModels.stream().map(telefoneModel -> telefoneModel.getTelefone())
+                telefoneModels.stream().map(TelefoneModel::getTelefone)
                         .collect(Collectors.toList()), TelefoneDTO.class);
     }
 

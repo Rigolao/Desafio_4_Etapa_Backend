@@ -2,7 +2,6 @@ package br.rigolao.desafio_4_etapa_backend.projetos.handler;
 
 import br.rigolao.desafio_4_etapa_backend.exceptions.ProjetoNaoEncontradoException;
 import br.rigolao.desafio_4_etapa_backend.projetos.controllers.ProjetosController;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

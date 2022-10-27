@@ -18,13 +18,13 @@ public class AuthenticationProviderImp implements AuthenticationProvider {
     private AutenticacaoRepository autenticacaoRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder; //TODO - Arrumar depois
 
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         CientistaModel cientistaModel = autenticacaoRepository.findByCpf(authentication.getPrincipal().toString())
-                .orElseThrow(() -> new UsuarioNaoEncontradoException());
+                .orElseThrow(UsuarioNaoEncontradoException::new);
 
         if (!authentication.getCredentials().toString().equals(cientistaModel.getSnh())) {
             throw new SenhaInvalidaException();

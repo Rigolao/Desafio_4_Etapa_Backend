@@ -2,9 +2,11 @@ package br.rigolao.desafio_4_etapa_backend.dtos;
 
 import br.rigolao.desafio_4_etapa_backend.dtos.formacao.FormacaoDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

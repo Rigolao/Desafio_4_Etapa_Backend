@@ -5,12 +5,8 @@ import br.rigolao.desafio_4_etapa_backend.config.security.CpfSenhaAuthentication
 import br.rigolao.desafio_4_etapa_backend.config.security.utils.JwtTokenUtil;
 import br.rigolao.desafio_4_etapa_backend.dtos.CientistaDTO;
 import br.rigolao.desafio_4_etapa_backend.dtos.LoginDTO;
-import br.rigolao.desafio_4_etapa_backend.dtos.TelefoneDTO;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
-import br.rigolao.desafio_4_etapa_backend.models.telefone.TelefoneId;
-import br.rigolao.desafio_4_etapa_backend.models.telefone.TelefoneModel;
 import br.rigolao.desafio_4_etapa_backend.utils.LogUtil;
-import br.rigolao.desafio_4_etapa_backend.utils.ObjectMapperUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -21,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")

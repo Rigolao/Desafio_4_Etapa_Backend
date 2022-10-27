@@ -1,12 +1,14 @@
 package br.rigolao.desafio_4_etapa_backend.models.telefone;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Embeddable
 @Data

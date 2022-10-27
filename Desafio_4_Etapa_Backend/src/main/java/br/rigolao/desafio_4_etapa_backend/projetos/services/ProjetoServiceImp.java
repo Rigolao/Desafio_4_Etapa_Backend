@@ -1,15 +1,12 @@
 package br.rigolao.desafio_4_etapa_backend.projetos.services;
 
 import br.rigolao.desafio_4_etapa_backend.exceptions.ProjetoNaoEncontradoException;
-import br.rigolao.desafio_4_etapa_backend.exceptions.SemPermissaoException;
-import br.rigolao.desafio_4_etapa_backend.exceptions.UsuarioNaoEncontradoException;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
 import br.rigolao.desafio_4_etapa_backend.models.ProjetoModel;
 import br.rigolao.desafio_4_etapa_backend.projetos.repositories.ProjetosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +14,7 @@ import java.util.Optional;
 @Service
 public class ProjetoServiceImp implements ProjetosService{
 
-    private ProjetosRepository projetosRepository;
+    private final ProjetosRepository projetosRepository;
 
     @Autowired
     public ProjetoServiceImp(ProjetosRepository projetosRepository) {

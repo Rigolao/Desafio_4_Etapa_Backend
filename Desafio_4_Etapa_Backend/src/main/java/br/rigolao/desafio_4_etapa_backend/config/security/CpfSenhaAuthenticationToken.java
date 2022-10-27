@@ -3,10 +3,12 @@ package br.rigolao.desafio_4_etapa_backend.config.security;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.io.Serial;
 import java.util.Collection;
 
 public class CpfSenhaAuthenticationToken extends AbstractAuthenticationToken {
 
+    @Serial
     private static final long serialVersionUID = 570L;
 
     private final Object principal;

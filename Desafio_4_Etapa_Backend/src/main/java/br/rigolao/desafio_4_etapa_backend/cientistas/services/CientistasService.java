@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface CientistasService {
 
-    public List<CientistaModel> retornaTodosCientistas();
+    List<CientistaModel> retornaTodosCientistas();
 
-    public List<CientistaModel> retornaCientistasPorAreaAtuacao(AreaAtuacaoModel areaAtuacao);
+    List<CientistaModel> retornaCientistasPorAreaAtuacao(AreaAtuacaoModel areaAtuacao);
 
 }
