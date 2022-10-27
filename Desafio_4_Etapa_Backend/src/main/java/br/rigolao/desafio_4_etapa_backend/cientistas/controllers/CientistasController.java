@@ -5,15 +5,14 @@ import br.rigolao.desafio_4_etapa_backend.dtos.*;
 import br.rigolao.desafio_4_etapa_backend.dtos.formacao.FormacaoDTO;
 import br.rigolao.desafio_4_etapa_backend.models.ProjetoModel;
 import br.rigolao.desafio_4_etapa_backend.models.RedesSociaisModel;
-import br.rigolao.desafio_4_etapa_backend.models.area_atuacao_cientista.AreaAtuacaoCientistaModel;
+import br.rigolao.desafio_4_etapa_backend.models.areaAtuacaoCientista.AreaAtuacaoCientistaModel;
 import br.rigolao.desafio_4_etapa_backend.models.formacao.FormacaoModel;
+import br.rigolao.desafio_4_etapa_backend.models.telefone.TelefoneId;
 import br.rigolao.desafio_4_etapa_backend.models.telefone.TelefoneModel;
 import br.rigolao.desafio_4_etapa_backend.utils.ObjectMapperUtil;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class CientistasController {
     @GetMapping(value = "/todosCientistas")
     public ResponseEntity<?> retornaTodosCientistas() {
         return ResponseEntity.ok(
-                cientistasService.retornatodosCientistas().stream().map(cientistaModel -> {
+                cientistasService.retornaTodosCientistas().stream().map(cientistaModel -> {
                     CientistaDTO cientistaTemp = new CientistaDTO();
                     BeanUtils.copyProperties(cientistaModel, cientistaTemp);
                     cientistaTemp.setRedesSociais(_preencherRedesSociais(cientistaModel.getRedesSociais()));
@@ -66,14 +65,17 @@ public class CientistasController {
     }
 
     private List<TelefoneDTO> _preencherTelefones(List<TelefoneModel> telefoneModels) {
-        return telefoneModels.stream().map(telefoneModel ->
-                ObjectMapperUtil.map(telefoneModel.getTelefone(), TelefoneDTO.class)
-        ).collect(Collectors.toList());
+        return ObjectMapperUtil.mapAll(
+                telefoneModels.stream().map(telefoneModel -> telefoneModel.getTelefone())
+                        .collect(Collectors.toList()), TelefoneDTO.class);
     }
 
     private List<ProjetoDTO> _preencherProjetos(List<ProjetoModel> projetoModels) {
-        return projetoModels.stream().map(projetoModel ->
-                ObjectMapperUtil.map(projetoModel, ProjetoDTO.class)
+        return projetoModels.stream().map(projetoModel -> {
+                    ProjetoDTO projetoTemp = ObjectMapperUtil.map(projetoModel, ProjetoDTO.class);
+                    BeanUtils.copyProperties(projetoModel.getCientista(), projetoTemp);
+                    return projetoTemp;
+                }
         ).collect(Collectors.toList());
     }
 

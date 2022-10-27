@@ -20,7 +20,7 @@ public class CientistasServiceImp implements CientistasService{
     }
 
     @Override
-    public List<CientistaModel> retornatodosCientistas() {
+    public List<CientistaModel> retornaTodosCientistas() {
         return cientistasRepository.findAll();
     }
 

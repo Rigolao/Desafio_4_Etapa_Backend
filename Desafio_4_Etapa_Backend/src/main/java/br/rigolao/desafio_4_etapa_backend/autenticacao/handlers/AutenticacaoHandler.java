@@ -1,9 +1,6 @@
 package br.rigolao.desafio_4_etapa_backend.autenticacao.handlers;
 
-import br.rigolao.desafio_4_etapa_backend.exceptions.CientistaJaCadastradoException;
-import br.rigolao.desafio_4_etapa_backend.exceptions.SenhaInvalidaException;
-import br.rigolao.desafio_4_etapa_backend.exceptions.TokenExpiradoException;
-import br.rigolao.desafio_4_etapa_backend.exceptions.UsuarioNaoEncontradoException;
+import br.rigolao.desafio_4_etapa_backend.exceptions.*;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.http.HttpHeaders;
@@ -72,6 +69,21 @@ public class AutenticacaoHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(SenhaInvalidaException.class)
     public ResponseEntity<Object> handleSenhaInvalidaException(SenhaInvalidaException ex) {
+        return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(CpfJaCadastradoException.class)
+    public ResponseEntity<Object> handleCpfJaCadastradoException(CpfJaCadastradoException ex) {
+        return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(EmailCadastradoException.class)
+    public ResponseEntity<Object> handleEmailCadastradoException(EmailCadastradoException ex) {
+        return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(LattesCadastradoException.class)
+    public ResponseEntity<Object> handleLattesCadastradoException(LattesCadastradoException ex) {
         return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 

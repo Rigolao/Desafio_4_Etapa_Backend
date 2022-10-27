@@ -1,8 +1,7 @@
 package br.rigolao.desafio_4_etapa_backend.autenticacao.services;
 
 import br.rigolao.desafio_4_etapa_backend.autenticacao.repositories.AutenticacaoRepository;
-import br.rigolao.desafio_4_etapa_backend.exceptions.CientistaJaCadastradoException;
-import br.rigolao.desafio_4_etapa_backend.exceptions.UsuarioNaoEncontradoException;
+import br.rigolao.desafio_4_etapa_backend.exceptions.*;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
 import br.rigolao.desafio_4_etapa_backend.utils.LogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,16 @@ public class AutenticacaoServiceImp extends LogUtil implements UserDetailsServic
     @Transactional
     public CientistaModel saveCientista(CientistaModel cientista) {
         if (autenticacaoRepository.existsByCpf(cientista.getCpf())) {
-            throw new CientistaJaCadastradoException();
+            throw new CpfJaCadastradoException();
+        }
+        if(autenticacaoRepository.existsByEmail(cientista.getEmail())){
+            throw new EmailCadastradoException();
+        }
+//        if(autenticacaoRepository.existsByNome(cientista.getNome())) {
+//            throw new CientistaJaCadastradoException();
+//        }
+        if(autenticacaoRepository.existsByLattes(cientista.getLattes())){
+            throw new LattesCadastradoException();
         }
         logInfo("Cientista salvo no banco de dados");
         return autenticacaoRepository.save(cientista);

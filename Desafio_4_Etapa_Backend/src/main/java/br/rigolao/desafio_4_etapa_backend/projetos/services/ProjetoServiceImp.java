@@ -45,14 +45,11 @@ public class ProjetoServiceImp implements ProjetosService{
     @Override
     public ProjetoModel retornaMeuProjeto(Integer id, CientistaModel cientista) {
         Optional<ProjetoModel> projetoModel = projetosRepository.findProjetoModelByIdAndCientista(id, cientista);
+        return projetoModel.orElseThrow(ProjetoNaoEncontradoException::new);
+    }
 
-        if(projetoModel.isPresent()){
-            if (!projetoModel.get().getCientista().getCpf().equals(cientista.getCpf())){
-                throw new SemPermissaoException("Esse projeto não pode ser editado por você!");
-            }
-            return projetoModel.get();
-        } else {
-            throw new ProjetoNaoEncontradoException();
-        }
+    @Override
+    public void deletarProjeto(ProjetoModel projeto) {
+        projetosRepository.delete(projeto);
     }
 }

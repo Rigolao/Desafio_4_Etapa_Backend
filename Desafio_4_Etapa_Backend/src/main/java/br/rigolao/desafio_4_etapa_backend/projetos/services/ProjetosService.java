@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface ProjetosService {
 
-
     public List<ProjetoModel> findAllProjects();
 
     @Transactional
@@ -19,5 +18,8 @@ public interface ProjetosService {
 
     @Transactional
     public ProjetoModel retornaMeuProjeto(Integer id, CientistaModel cientista);
+
+    @Transactional
+    public void deletarProjeto(ProjetoModel projeto);
 
 }

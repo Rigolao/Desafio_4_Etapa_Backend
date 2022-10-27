@@ -1,4 +1,4 @@
-package br.rigolao.desafio_4_etapa_backend.models.area_atuacao_cientista;
+package br.rigolao.desafio_4_etapa_backend.models.areaAtuacaoCientista;
 
 import br.rigolao.desafio_4_etapa_backend.models.AreaAtuacaoModel;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;

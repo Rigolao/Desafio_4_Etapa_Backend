@@ -48,8 +48,7 @@ public class ProjetosController extends LogUtil {
     @PostMapping(value = "/cadastrarProjeto")
     public ResponseEntity<?> cadastrarProjeto(
             @RequestHeader("Authorization") String token, @RequestBody @Valid ProjetoDTO projeto) {
-        String cpf = jwtTokenUtil.getSubjectFromToken(token);
-        CientistaModel cientista = autenticacaoService.loadUserByCpf(cpf);
+        CientistaModel cientista = _carregarCientista(token);
         ProjetoModel projetoModel = ObjectMapperUtil.map(projeto, ProjetoModel.class);
         projetoModel.setCientista(cientista);
         projetoService.saveProjeto(projetoModel);
@@ -60,8 +59,7 @@ public class ProjetosController extends LogUtil {
 
     @GetMapping(value = "/meusProjetos")
     public ResponseEntity<?> meusProjetos(@RequestHeader("Authorization") String token) {
-        String cpf = jwtTokenUtil.getSubjectFromToken(token);
-        CientistaModel cientista = autenticacaoService.loadUserByCpf(cpf);
+        CientistaModel cientista = _carregarCientista(token);
         logInfo("Retornando todos os projetos do cientista " + cientista.getNome());
         return ResponseEntity.ok(_carregarProjetos(projetoService.retornarMeusProjetos(cientista)));
     }
@@ -70,13 +68,22 @@ public class ProjetosController extends LogUtil {
     public ResponseEntity<?> editarProjeto(
             @PathVariable(value = "id") Integer id, @RequestHeader("Authorization") String token,
             @RequestBody @Valid ProjetoDTO projeto) {
-        String cpf = jwtTokenUtil.getSubjectFromToken(token);
-        CientistaModel cientista = autenticacaoService.loadUserByCpf(cpf);
+        CientistaModel cientista = _carregarCientista(token);
         ProjetoModel meuProjeto = projetoService.retornaMeuProjeto(id, cientista);
         BeanUtils.copyProperties(projeto, meuProjeto, "id");
         projetoService.saveProjeto(meuProjeto);
         logInfo("Projeto de nome: " + meuProjeto.getTitulo() + " alterado!");
         return ResponseEntity.ok("Projeto editado com sucesso!");
+    }
+
+    @DeleteMapping(value = "/deletarProjeto/{id}")
+    public ResponseEntity<?> deletarProjeto(
+            @PathVariable(value = "id") Integer id, @RequestHeader("Authorization") String token) {
+        CientistaModel cientista = _carregarCientista(token);
+        ProjetoModel projeto = projetoService.retornaMeuProjeto(id, cientista);
+        projetoService.deletarProjeto(projeto);
+        logInfo("Projeto deletado com sucesso!");
+        return ResponseEntity.ok("Projeto deletado com sucesso!");
     }
 
     private List<ProjetoDTO> _carregarProjetos(List<ProjetoModel> projetoModels) {
@@ -85,6 +92,11 @@ public class ProjetosController extends LogUtil {
             BeanUtils.copyProperties(projetoModel.getCientista(), projetoDTO);
             return projetoDTO;
         }).collect(Collectors.toList());
+    }
+
+    private CientistaModel _carregarCientista(String token) {
+        String cpf = jwtTokenUtil.getSubjectFromToken(token);
+        return autenticacaoService.loadUserByCpf(cpf);
     }
 
 }

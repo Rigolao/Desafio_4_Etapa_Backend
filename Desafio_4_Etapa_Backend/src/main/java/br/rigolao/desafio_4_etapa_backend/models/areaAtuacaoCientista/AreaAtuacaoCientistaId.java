@@ -1,4 +1,4 @@
-package br.rigolao.desafio_4_etapa_backend.models.area_atuacao_cientista;
+package br.rigolao.desafio_4_etapa_backend.models.areaAtuacaoCientista;
 
 import lombok.*;
 
@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Embeddable
 @Data

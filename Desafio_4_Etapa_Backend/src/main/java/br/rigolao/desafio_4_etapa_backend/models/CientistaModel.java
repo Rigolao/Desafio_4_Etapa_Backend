@@ -1,6 +1,6 @@
 package br.rigolao.desafio_4_etapa_backend.models;
 
-import br.rigolao.desafio_4_etapa_backend.models.area_atuacao_cientista.AreaAtuacaoCientistaModel;
+import br.rigolao.desafio_4_etapa_backend.models.areaAtuacaoCientista.AreaAtuacaoCientistaModel;
 import br.rigolao.desafio_4_etapa_backend.models.formacao.FormacaoModel;
 import br.rigolao.desafio_4_etapa_backend.models.telefone.TelefoneModel;
 import lombok.*;

@@ -14,14 +14,11 @@ import javax.persistence.Column;
 @NoArgsConstructor
 public class TelefoneDTO {
 
-    @Column(name = "ddd_telefone", length = 2)
     private Integer ddd;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(name = "id_cientista")
     private Integer idCientista;
 
-    @Column(name = "num_telefone", length = 10)
     private String numero;
 
 }

@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
 @SpringBootApplication
 public class Desafio4EtapaBackendApplication {
 
@@ -16,13 +15,8 @@ public class Desafio4EtapaBackendApplication {
         SpringApplication.run(Desafio4EtapaBackendApplication.class, args);
     }
     
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
-
-    @GetMapping("/")
-    public ResponseEntity<Object> oi() {
-        return ResponseEntity.ok("Oi");
-    }
+//    @Bean
+//    public ModelMapper modelMapper() {
+//        return new ModelMapper();
+//    }
 }
