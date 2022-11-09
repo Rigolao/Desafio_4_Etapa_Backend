@@ -27,6 +27,7 @@ public class AutenticacaoServiceImp extends LogUtil implements UserDetailsServic
         return null;
     }
 
+    @Override
     @Transactional
     public CientistaModel loadUserByCpf(String cpf) throws UsuarioNaoEncontradoException {
         CientistaModel cientista = autenticacaoRepository.findByCpf(cpf)
@@ -38,6 +39,7 @@ public class AutenticacaoServiceImp extends LogUtil implements UserDetailsServic
                 cientista.getTelefones(), cientista.getAreaAtuacaoCientista(), cientista.getProjeto());
     }
 
+    @Override
     @Transactional
     public CientistaModel saveCientista(CientistaModel cientista) {
         if (autenticacaoRepository.existsByCpf(cientista.getCpf())) {
@@ -46,14 +48,21 @@ public class AutenticacaoServiceImp extends LogUtil implements UserDetailsServic
         if(autenticacaoRepository.existsByEmail(cientista.getEmail())){
             throw new EmailCadastradoException();
         }
-//        if(autenticacaoRepository.existsByNome(cientista.getNome())) {
-//            throw new CientistaJaCadastradoException();
-//        }
         if(autenticacaoRepository.existsByLattes(cientista.getLattes())){
             throw new LattesCadastradoException();
         }
         logInfo("Cientista salvo no banco de dados");
         return autenticacaoRepository.save(cientista);
+    }
+
+    @Override
+    @Transactional
+    public CientistaModel updateCientista(CientistaModel cientistaModel) {
+        if(!autenticacaoRepository.existsByCpf(cientistaModel.getCpf())){
+            throw new UsuarioNaoEncontradoException();
+        }
+        logInfo("Atualizando cadastro do cientista: " + cientistaModel.getNome());
+        return autenticacaoRepository.save(cientistaModel);
     }
 
 }

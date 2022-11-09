@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -25,15 +27,18 @@ public class CientistaDTO {
     private String nome;
 
     @NotBlank(message = "CPF é obrigatório")
-    @Size(max = 11)
+    @CPF
+    @Size(max = 11, min = 11)
     private String cpf;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataNascimento;
 
     @NotBlank(message = "Email é obrigatório")
+    @Email
     private String email;
 
+    @Email
     private String emailAlternativo;
 
     @NotBlank(message = "Lattes é obrigatório")

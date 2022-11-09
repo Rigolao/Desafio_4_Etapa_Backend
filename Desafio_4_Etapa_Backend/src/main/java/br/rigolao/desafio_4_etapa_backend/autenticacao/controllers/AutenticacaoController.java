@@ -5,8 +5,13 @@ import br.rigolao.desafio_4_etapa_backend.config.security.CpfSenhaAuthentication
 import br.rigolao.desafio_4_etapa_backend.config.security.utils.JwtTokenUtil;
 import br.rigolao.desafio_4_etapa_backend.dtos.CientistaDTO;
 import br.rigolao.desafio_4_etapa_backend.dtos.LoginDTO;
+import br.rigolao.desafio_4_etapa_backend.dtos.TelefoneDTO;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
+import br.rigolao.desafio_4_etapa_backend.models.telefone.TelefoneId;
+import br.rigolao.desafio_4_etapa_backend.models.telefone.TelefoneModel;
+import br.rigolao.desafio_4_etapa_backend.telefone.services.TelefoneService;
 import br.rigolao.desafio_4_etapa_backend.utils.LogUtil;
+import br.rigolao.desafio_4_etapa_backend.utils.ObjectMapperUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -29,12 +36,15 @@ public class AutenticacaoController extends LogUtil {
 
     private final AutenticacaoService autenticacaoService;
 
+    private final TelefoneService telefoneService;
+
     @Autowired
     public AutenticacaoController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil,
-                                  AutenticacaoService autenticacaoService) {
+                                  AutenticacaoService autenticacaoService, TelefoneService telefoneService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.autenticacaoService = autenticacaoService;
+        this.telefoneService = telefoneService;
     }
 
     @PostMapping(value = "/autenticar")
@@ -61,22 +71,22 @@ public class AutenticacaoController extends LogUtil {
         BeanUtils.copyProperties(cientistaDTO, cientista);
         logInfo("Cientista tentando cadastro.");
         autenticacaoService.saveCientista(cientista);
-//        if(!cientistaDTO.getTelefones().isEmpty()){
-//            cientista.setTelefones(teste(cientistaDTO.getTelefones(), cientista.getId()));
-//            autenticacaoService.saveCientista(cientista);
-//            logInfo("Cadastro de telefone(s) de cientista.");
-//        }
+        if(!cientistaDTO.getTelefones().isEmpty()){
+            cientista.setTelefones(_salvarTelefones(cientistaDTO.getTelefones(), cientista));
+            autenticacaoService.updateCientista(cientista);
+            logInfo("Cadastro de telefone(s) do cientista: " + cientista.getNome());
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body("Cientista cadastrado");
     }
 
-//    private List<TelefoneModel> teste(List<TelefoneDTO> lista, Integer idCientista) {
-//        List<TelefoneId> listaIds = ObjectMapperUtil.mapAll(lista, TelefoneId.class);
-//        return listaIds.stream().map(id -> {
-//            TelefoneModel telefone = new TelefoneModel();
-//            id.setIdCientista(idCientista);
-//            telefone.setTelefone(id);
-//            return telefone;
-//        }).collect(Collectors.toList());
-//    }
+    private List<TelefoneModel> _salvarTelefones(List<TelefoneDTO> lista, CientistaModel cientista) {
+        List<TelefoneId> listaIds = ObjectMapperUtil.mapAll(lista, TelefoneId.class);
+        return listaIds.stream().map(id -> {
+            id.setIdCientista(cientista.getId());
+            TelefoneModel telefone = new TelefoneModel(id, cientista);
+            telefoneService.saveTelefone(telefone);
+            return telefone;
+        }).collect(Collectors.toList());
+    }
 
 }
