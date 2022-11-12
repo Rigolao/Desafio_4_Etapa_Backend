@@ -25,6 +25,11 @@ public class CientistasServiceImp implements CientistasService{
     }
 
     @Override
+    public List<CientistaModel> retornaCientistaPorNome(String nomeCientista) {
+        return cientistasRepository.findAllByNomeStartingWithIgnoreCase(nomeCientista).orElse(Collections.emptyList());
+    }
+
+    @Override
     public List<CientistaModel> retornaCientistasPorAreaAtuacao(AreaAtuacaoModel areaAtuacao) {
         return cientistasRepository.findAllByAreaAtuacaoCientista(areaAtuacao).orElse(Collections.emptyList());
     }

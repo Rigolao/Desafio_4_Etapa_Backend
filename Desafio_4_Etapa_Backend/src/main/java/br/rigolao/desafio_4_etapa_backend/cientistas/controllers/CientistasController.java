@@ -3,6 +3,7 @@ package br.rigolao.desafio_4_etapa_backend.cientistas.controllers;
 import br.rigolao.desafio_4_etapa_backend.cientistas.services.CientistasService;
 import br.rigolao.desafio_4_etapa_backend.dtos.*;
 import br.rigolao.desafio_4_etapa_backend.dtos.formacao.FormacaoDTO;
+import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
 import br.rigolao.desafio_4_etapa_backend.models.ProjetoModel;
 import br.rigolao.desafio_4_etapa_backend.models.RedesSociaisModel;
 import br.rigolao.desafio_4_etapa_backend.models.areaAtuacaoCientista.AreaAtuacaoCientistaModel;
@@ -12,10 +13,7 @@ import br.rigolao.desafio_4_etapa_backend.utils.ObjectMapperUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,16 +33,26 @@ public class CientistasController {
     @GetMapping(value = "/todosCientistas")
     public ResponseEntity<?> retornaTodosCientistas() {
         return ResponseEntity.ok(
-                cientistasService.retornaTodosCientistas().stream().map(cientistaModel -> {
-                    CientistaDTO cientistaTemp = new CientistaDTO();
-                    BeanUtils.copyProperties(cientistaModel, cientistaTemp);
-                    cientistaTemp.setRedesSociais(_preencherRedesSociais(cientistaModel.getRedesSociais()));
-                    cientistaTemp.setAreaAtuacaoCientista(_preencherAreaAtuacao(cientistaModel.getAreaAtuacaoCientista()));
-                    cientistaTemp.setFormacoes(_preencherFormacoes(cientistaModel.getFormacoes()));
-                    cientistaTemp.setTelefones(_preencherTelefones(cientistaModel.getTelefones()));
-                    cientistaTemp.setProjetos(_preencherProjetos(cientistaModel.getProjeto()));
-                    return cientistaTemp;
-                }).collect(Collectors.toList()));
+                cientistasService.retornaTodosCientistas().stream().map(
+                        this::_preencheCientistaDTO).collect(Collectors.toList()));
+    }
+
+    @GetMapping(value = "/buscarCientista")
+    public ResponseEntity<?> retornaCientistasPorNome(@RequestParam String nomeCientista) {
+        return ResponseEntity.ok(
+                cientistasService.retornaCientistaPorNome(nomeCientista).stream().map(
+                        this::_preencheCientistaDTO).collect(Collectors.toList()));
+    }
+
+    private CientistaDTO _preencheCientistaDTO(CientistaModel cientistaModel) {
+        CientistaDTO cientistaTemp = new CientistaDTO();
+        BeanUtils.copyProperties(cientistaModel, cientistaTemp);
+        cientistaTemp.setRedesSociais(_preencherRedesSociais(cientistaModel.getRedesSociais()));
+        cientistaTemp.setAreaAtuacaoCientista(_preencherAreaAtuacao(cientistaModel.getAreaAtuacaoCientista()));
+        cientistaTemp.setFormacoes(_preencherFormacoes(cientistaModel.getFormacoes()));
+        cientistaTemp.setTelefones(_preencherTelefones(cientistaModel.getTelefones()));
+        cientistaTemp.setProjetos(_preencherProjetos(cientistaModel.getProjeto()));
+        return cientistaTemp;
     }
 
 

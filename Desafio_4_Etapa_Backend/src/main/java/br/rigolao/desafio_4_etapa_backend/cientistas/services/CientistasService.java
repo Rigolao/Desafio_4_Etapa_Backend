@@ -9,6 +9,8 @@ public interface CientistasService {
 
     List<CientistaModel> retornaTodosCientistas();
 
+    List<CientistaModel> retornaCientistaPorNome(String nomeCientista);
+
     List<CientistaModel> retornaCientistasPorAreaAtuacao(AreaAtuacaoModel areaAtuacao);
 
 }

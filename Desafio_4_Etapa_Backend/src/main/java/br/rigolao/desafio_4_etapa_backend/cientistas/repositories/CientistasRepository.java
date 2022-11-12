@@ -12,6 +12,6 @@ public interface CientistasRepository extends JpaRepository<CientistaModel, Inte
 
     Optional<List<CientistaModel>> findAllByAreaAtuacaoCientista(AreaAtuacaoModel atuacaoModel);
 
-
+    Optional<List<CientistaModel>> findAllByNomeStartingWithIgnoreCase(String nomeCientista);
 
 }
