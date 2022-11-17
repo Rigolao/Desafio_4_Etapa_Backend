@@ -14,7 +14,6 @@ public class TelefoneDTO {
 
     private Integer ddd;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer idCientista;
 
     private String numero;

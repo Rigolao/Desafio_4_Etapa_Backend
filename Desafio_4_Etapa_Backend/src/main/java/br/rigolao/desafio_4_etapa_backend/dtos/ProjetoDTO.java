@@ -16,7 +16,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class ProjetoDTO {
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer id;
 
     private String titulo;

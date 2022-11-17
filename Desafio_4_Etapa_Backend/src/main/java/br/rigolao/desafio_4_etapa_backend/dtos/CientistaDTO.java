@@ -21,7 +21,6 @@ import java.util.List;
 @NoArgsConstructor
 public class CientistaDTO {
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer id;
 
     private String nome;

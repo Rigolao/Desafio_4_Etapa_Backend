@@ -16,7 +16,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class FormacaoDTO {
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private FormacaoIdDTO id;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
