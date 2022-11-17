@@ -4,6 +4,6 @@ import br.rigolao.desafio_4_etapa_backend.models.telefone.TelefoneModel;
 
 public interface TelefoneService {
 
-    TelefoneModel saveTelefone(TelefoneModel telefone);
+    void saveTelefone(TelefoneModel telefone);
 
 }

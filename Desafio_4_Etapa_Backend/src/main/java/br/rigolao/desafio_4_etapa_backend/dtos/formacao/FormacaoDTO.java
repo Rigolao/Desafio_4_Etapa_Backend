@@ -1,5 +1,6 @@
 package br.rigolao.desafio_4_etapa_backend.dtos.formacao;
 
+import br.rigolao.desafio_4_etapa_backend.dtos.TitulacaoDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,9 @@ public class FormacaoDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataTermino;
 
+    //Nome da titulação
     private String nome;
+
+//    private TitulacaoDTO titulacao;
 
 }

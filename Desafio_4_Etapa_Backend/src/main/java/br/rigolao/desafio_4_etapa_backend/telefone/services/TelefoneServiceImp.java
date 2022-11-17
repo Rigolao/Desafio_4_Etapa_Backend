@@ -17,8 +17,8 @@ public class TelefoneServiceImp extends LogUtil implements TelefoneService{
     }
 
     @Override
-    public TelefoneModel saveTelefone(TelefoneModel telefone) {
+    public void saveTelefone(TelefoneModel telefone) {
         logInfo("Tentando salvar telefone");
-        return telefoneRepository.save(telefone);
+        telefoneRepository.save(telefone);
     }
 }

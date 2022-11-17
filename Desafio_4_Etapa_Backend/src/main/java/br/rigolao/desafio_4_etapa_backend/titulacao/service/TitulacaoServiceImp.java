@@ -1,0 +1,32 @@
+package br.rigolao.desafio_4_etapa_backend.titulacao.service;
+
+import br.rigolao.desafio_4_etapa_backend.models.TitulacaoModel;
+import br.rigolao.desafio_4_etapa_backend.titulacao.repositories.TitulacaoRepository;
+import br.rigolao.desafio_4_etapa_backend.utils.LogUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+
+@Service
+public class TitulacaoServiceImp extends LogUtil implements TitulacaoService{
+
+    private final TitulacaoRepository titulacaoRepository;
+
+    @Autowired
+    public TitulacaoServiceImp(TitulacaoRepository titulacaoRepository) {
+        this.titulacaoRepository = titulacaoRepository;
+    }
+
+    @Override
+    @Transactional
+    public TitulacaoModel saveTitulacao(TitulacaoModel titulacaoModel) { //TODO - ARRUMAR
+        logInfo("Titulação " + titulacaoModel.getNome() + " salva!");
+        return titulacaoRepository.save(titulacaoModel);
+    }
+
+    @Override
+    public TitulacaoModel buscarTitulacao(String nome) {
+        return titulacaoRepository.findByNome(nome);
+    }
+}

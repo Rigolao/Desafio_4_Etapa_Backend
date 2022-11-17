@@ -28,7 +28,7 @@ public class CientistaDTO {
 
     @NotBlank(message = "CPF é obrigatório")
     @CPF
-    @Size(max = 11, min = 11)
+    @Size(max = 11, min = 11, message = "O CPF deve ter 11 caracteres!")
     private String cpf;
 
     @JsonFormat(pattern = "dd/MM/yyyy")

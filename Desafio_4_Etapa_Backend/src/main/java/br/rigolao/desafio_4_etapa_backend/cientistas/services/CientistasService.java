@@ -13,4 +13,6 @@ public interface CientistasService {
 
     List<CientistaModel> retornaCientistasPorAreaAtuacao(AreaAtuacaoModel areaAtuacao);
 
+    void editarCientista(CientistaModel cientistaModel);
+
 }
