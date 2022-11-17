@@ -6,6 +6,8 @@ import br.rigolao.desafio_4_etapa_backend.utils.LogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class FormacaoServiceImp extends LogUtil implements FormacaoService{
 
@@ -17,6 +19,7 @@ public class FormacaoServiceImp extends LogUtil implements FormacaoService{
     }
 
     @Override
+    @Transactional
     public void saveFormacao(FormacaoModel formacaoModel) {
         formacaoRepository.save(formacaoModel);
         logInfo("Formação " + formacaoModel.getTitulacaoModel().getNome() + " salva!");

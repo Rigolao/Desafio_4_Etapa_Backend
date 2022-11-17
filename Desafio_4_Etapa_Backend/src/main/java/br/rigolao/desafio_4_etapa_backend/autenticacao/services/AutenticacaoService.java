@@ -7,7 +7,11 @@ public interface AutenticacaoService  {
 
     CientistaModel loadUserByCpf(String cpf);
 
+    void cadastrarCientista(CientistaModel cientistaModel);
+
     CientistaModel saveCientista(CientistaModel cientista);
 
     CientistaModel updateCientista(CientistaModel cientistaModel);
+
+    void deleteCientista(CientistaModel cientistaModel);
 }

@@ -43,6 +43,11 @@ public class AutenticacaoHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ErroCadastroCientistaException.class)
+    public ResponseEntity<Object> handleErroCadastroCientistaException(ErroCadastroCientistaException ex) {
+        return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
                                                                   HttpHeaders headers, HttpStatus status,

@@ -89,55 +89,8 @@ public class AutenticacaoController extends LogUtil {
     @PostMapping(value = "/cadastro")
     public ResponseEntity<?> cadastro(@RequestBody @Valid CientistaDTO cientistaDTO) {
         CientistaModel cientista = CientistaUtil.preencherCientistaModel(new CientistaModel(), cientistaDTO);
-        logInfo("Cientista tentando cadastro.");
-        autenticacaoService.saveCientista(cientista);
-
-        if (cientista.getTelefones() != null) {
-           _salvarTelefones(cientista.getTelefones());
-            logInfo("Cadastro de telefone(s) do cientista: " + cientista.getNome());
-        }
-
-        if (cientista.getRedesSociais() != null) {
-            _salvarRedesSociais(cientista.getRedesSociais());
-            logInfo("Cadastro de rede(s) social(is) do cientista: " + cientista.getNome());
-        }
-
-        if(cientista.getAreaAtuacaoCientista() != null) {
-            _salvarAreasAtuacao(cientista.getAreaAtuacaoCientista());
-            logInfo("Cadastro de área(s) de atuação do cientista: " + cientista.getNome());
-        }
-
-        if(cientista.getFormacoes() != null) {
-            _salvarFormacoes(cientista.getFormacoes());
-            logInfo("Cadastro de formação(ões) do cientista: " + cientista.getNome());
-        }
-
+        autenticacaoService.cadastrarCientista(cientista);
         return ResponseEntity.status(HttpStatus.CREATED).body("Cientista cadastrado");
-    }
-
-    private void _salvarTelefones(List<TelefoneModel> lista) {
-        lista.forEach(telefoneService::saveTelefone);
-    }
-
-    private void _salvarRedesSociais(List<RedesSociaisModel> lista) {
-        lista.forEach(redesSociaisService::saveRedeSocial);
-    }
-
-    private void _salvarAreasAtuacao(List<AreaAtuacaoCientistaModel> lista) {
-        lista.forEach(areaAtuacaoCientistaModel -> {
-            areaAtuacaoCientistaModel.setAreaAtuacao(
-                    areaAtuacaoService.retornaAreaAtuacaoPorNome(areaAtuacaoCientistaModel.getAreaAtuacao().getNome()));
-            areaAtuacaoCientistaService.saveAreaAtuacaoCientista(areaAtuacaoCientistaModel);
-        });
-    }
-
-    private void _salvarFormacoes(List<FormacaoModel> lista) {
-        lista.forEach(formacaoModel -> {
-            formacaoModel.setTitulacaoModel(titulacaoService.buscarTitulacao(formacaoModel.getTitulacaoModel().getNome()));
-            formacaoModel.setId(new FormacaoId(
-                    formacaoModel.getCientista().getId(), formacaoModel.getTitulacaoModel().getId()));
-            formacaoService.saveFormacao(formacaoModel);
-        });
     }
 
 }

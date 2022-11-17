@@ -5,6 +5,8 @@ import br.rigolao.desafio_4_etapa_backend.redesSociais.repositories.RedesSociais
 import br.rigolao.desafio_4_etapa_backend.utils.LogUtil;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class RedesSociaisServiceImp extends LogUtil implements RedesSociaisService{
 
@@ -15,6 +17,7 @@ public class RedesSociaisServiceImp extends LogUtil implements RedesSociaisServi
     }
 
     @Override
+    @Transactional
     public void saveRedeSocial(RedesSociaisModel redesSociaisModel) {
         logInfo("Salvando rede social");
         redesSociaisRepository.save(redesSociaisModel);

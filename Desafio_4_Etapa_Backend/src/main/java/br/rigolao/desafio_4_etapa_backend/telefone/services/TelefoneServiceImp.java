@@ -6,6 +6,8 @@ import br.rigolao.desafio_4_etapa_backend.utils.LogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class TelefoneServiceImp extends LogUtil implements TelefoneService{
 
@@ -17,6 +19,7 @@ public class TelefoneServiceImp extends LogUtil implements TelefoneService{
     }
 
     @Override
+    @Transactional
     public void saveTelefone(TelefoneModel telefone) {
         logInfo("Tentando salvar telefone");
         telefoneRepository.save(telefone);
