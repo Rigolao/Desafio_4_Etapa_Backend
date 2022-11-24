@@ -74,7 +74,7 @@ public class AutenticacaoServiceImp extends LogUtil implements UserDetailsServic
     public void cadastrarCientista(CientistaModel cientista) {
         try{
             logInfo("Cientista tentando cadastro.");
-            autenticacaoRepository.save(cientista);
+            saveCientista(cientista);
 
             if (cientista.getTelefones() != null) {
                 _salvarTelefones(cientista.getTelefones());
@@ -97,7 +97,7 @@ public class AutenticacaoServiceImp extends LogUtil implements UserDetailsServic
             }
         } catch (Exception e) {
             logInfo("Erro no cadastro do cientista! Fazendo rollback");
-            throw new ErroCadastroCientistaException();
+            throw e; //TODO - Criar exceptions para as outras 4 tabelas
         }
     }
 

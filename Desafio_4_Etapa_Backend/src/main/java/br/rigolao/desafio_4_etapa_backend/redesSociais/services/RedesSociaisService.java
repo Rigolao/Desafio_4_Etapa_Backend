@@ -6,4 +6,6 @@ public interface RedesSociaisService {
 
     void saveRedeSocial(RedesSociaisModel redesSociaisModel);
 
+    void deleteRedeSocial(RedesSociaisModel redesSociaisModel);
+
 }

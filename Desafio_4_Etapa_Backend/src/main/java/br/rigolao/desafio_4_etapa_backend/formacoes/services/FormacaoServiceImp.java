@@ -24,4 +24,10 @@ public class FormacaoServiceImp extends LogUtil implements FormacaoService{
         formacaoRepository.save(formacaoModel);
         logInfo("Formação " + formacaoModel.getTitulacaoModel().getNome() + " salva!");
     }
+
+    @Override
+    public void deleteFormacoes(FormacaoModel formacaoModel) {
+        formacaoRepository.delete(formacaoModel);
+        logInfo("Formação deletada!");
+    }
 }

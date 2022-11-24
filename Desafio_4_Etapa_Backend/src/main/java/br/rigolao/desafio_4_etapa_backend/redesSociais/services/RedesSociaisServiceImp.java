@@ -22,4 +22,11 @@ public class RedesSociaisServiceImp extends LogUtil implements RedesSociaisServi
         logInfo("Salvando rede social");
         redesSociaisRepository.save(redesSociaisModel);
     }
+
+    @Override
+    @Transactional
+    public void deleteRedeSocial(RedesSociaisModel redesSociaisModel) {
+        redesSociaisRepository.delete(redesSociaisModel);
+        logInfo("Rede social deletada");
+    }
 }

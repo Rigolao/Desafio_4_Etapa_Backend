@@ -14,4 +14,14 @@ public interface CientistasRepository extends JpaRepository<CientistaModel, Inte
 
     Optional<List<CientistaModel>> findAllByNomeStartingWithIgnoreCase(String nomeCientista);
 
+    Optional<CientistaModel> findCientistaModelById(Integer id);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByEmailAndId(String email, Integer id);
+
+    boolean existsByLattes(String lattes);
+
+    boolean existsByLattesAndId(String lattes, Integer id);
+
 }

@@ -21,7 +21,9 @@ import java.util.stream.Collectors;
 public final class CientistaUtil {
 
     public static CientistaModel preencherCientistaModel(CientistaModel cientistaModel, CientistaDTO cientistaDTO) {
-        cientistaModel.setId(cientistaDTO.getId());
+        if(cientistaModel.getId() == null) {
+            cientistaModel.setId(cientistaDTO.getId());
+        }
         cientistaModel.setNome(cientistaDTO.getNome());
         cientistaModel.setCpf(cientistaDTO.getCpf());
         cientistaModel.setDataNascimento(cientistaDTO.getDataNascimento());

@@ -24,4 +24,11 @@ public class TelefoneServiceImp extends LogUtil implements TelefoneService{
         logInfo("Tentando salvar telefone");
         telefoneRepository.save(telefone);
     }
+
+    @Override
+    @Transactional
+    public void deleteTelefone(TelefoneModel telefoneModel) {
+        telefoneRepository.delete(telefoneModel);
+        logInfo("Telefone deletado");
+    }
 }

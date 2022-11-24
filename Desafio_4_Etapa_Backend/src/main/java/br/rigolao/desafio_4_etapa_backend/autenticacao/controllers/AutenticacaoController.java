@@ -10,12 +10,6 @@ import br.rigolao.desafio_4_etapa_backend.dtos.CientistaDTO;
 import br.rigolao.desafio_4_etapa_backend.dtos.LoginDTO;
 import br.rigolao.desafio_4_etapa_backend.formacoes.services.FormacaoService;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
-import br.rigolao.desafio_4_etapa_backend.models.RedesSociaisModel;
-import br.rigolao.desafio_4_etapa_backend.models.TitulacaoModel;
-import br.rigolao.desafio_4_etapa_backend.models.areaAtuacaoCientista.AreaAtuacaoCientistaModel;
-import br.rigolao.desafio_4_etapa_backend.models.formacao.FormacaoId;
-import br.rigolao.desafio_4_etapa_backend.models.formacao.FormacaoModel;
-import br.rigolao.desafio_4_etapa_backend.models.telefone.TelefoneModel;
 import br.rigolao.desafio_4_etapa_backend.redesSociais.services.RedesSociaisService;
 import br.rigolao.desafio_4_etapa_backend.telefone.services.TelefoneService;
 import br.rigolao.desafio_4_etapa_backend.titulacao.service.TitulacaoService;
@@ -29,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -42,30 +35,12 @@ public class AutenticacaoController extends LogUtil {
 
     private final AutenticacaoService autenticacaoService;
 
-    private final TelefoneService telefoneService;
-
-    private final RedesSociaisService redesSociaisService;
-
-    private final AreaAtuacaoCientistaService areaAtuacaoCientistaService;
-
-    private final AreaAtuacaoService areaAtuacaoService;
-
-    private final FormacaoService formacaoService;
-
-    private final TitulacaoService titulacaoService;
-
     @Autowired
     public AutenticacaoController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil,
-                                  AutenticacaoService autenticacaoService, TelefoneService telefoneService, RedesSociaisService redesSociaisService, AreaAtuacaoCientistaService areaAtuacaoCientistaService, AreaAtuacaoService areaAtuacaoService, FormacaoService formacaoService, TitulacaoService titulacaoService) {
+                                  AutenticacaoService autenticacaoService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.autenticacaoService = autenticacaoService;
-        this.telefoneService = telefoneService;
-        this.redesSociaisService = redesSociaisService;
-        this.areaAtuacaoCientistaService = areaAtuacaoCientistaService;
-        this.areaAtuacaoService = areaAtuacaoService;
-        this.formacaoService = formacaoService;
-        this.titulacaoService = titulacaoService;
     }
 
     @PostMapping(value = "/autenticar")

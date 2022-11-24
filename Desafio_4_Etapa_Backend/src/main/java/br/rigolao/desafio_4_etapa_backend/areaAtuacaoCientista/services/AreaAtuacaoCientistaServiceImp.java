@@ -24,4 +24,11 @@ public class AreaAtuacaoCientistaServiceImp extends LogUtil implements AreaAtuac
         logInfo("Salvando area de atuacção do cientista");
         areaAtucaoCientistaRepository.save(areaAtuacaoCientistaModel);
     }
+
+    @Override
+    @Transactional
+    public void deletarAreaAtuacaoCientista(AreaAtuacaoCientistaModel areaAtuacaoCientistaModel) {
+        logInfo("Deletando area de atuacao cientista");
+        areaAtucaoCientistaRepository.delete(areaAtuacaoCientistaModel);
+    }
 }

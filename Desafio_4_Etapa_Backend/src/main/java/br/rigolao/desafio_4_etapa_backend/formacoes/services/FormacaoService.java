@@ -6,4 +6,6 @@ public interface FormacaoService {
 
     void saveFormacao(FormacaoModel formacaoModel);
 
+    void deleteFormacoes(FormacaoModel formacaoModel);
+
 }

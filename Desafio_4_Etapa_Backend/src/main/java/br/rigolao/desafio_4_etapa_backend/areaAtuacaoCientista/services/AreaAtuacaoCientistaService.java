@@ -5,4 +5,6 @@ import br.rigolao.desafio_4_etapa_backend.models.areaAtuacaoCientista.AreaAtuaca
 public interface AreaAtuacaoCientistaService {
 
     void saveAreaAtuacaoCientista(AreaAtuacaoCientistaModel areaAtuacaoCientistaModel);
+
+    void deletarAreaAtuacaoCientista(AreaAtuacaoCientistaModel areaAtuacaoCientistaModel);
 }

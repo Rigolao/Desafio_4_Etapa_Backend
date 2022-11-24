@@ -6,4 +6,6 @@ public interface TelefoneService {
 
     void saveTelefone(TelefoneModel telefone);
 
+    void deleteTelefone(TelefoneModel telefoneModel);
+
 }
