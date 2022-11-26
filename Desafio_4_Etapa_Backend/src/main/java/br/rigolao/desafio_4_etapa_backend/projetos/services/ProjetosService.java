@@ -10,15 +10,12 @@ public interface ProjetosService {
 
     List<ProjetoModel> findAllProjects();
 
-    @Transactional
     void saveProjeto(ProjetoModel projeto);
 
     List<ProjetoModel> retornarMeusProjetos(CientistaModel cientista);
 
-    @Transactional
     ProjetoModel retornaMeuProjeto(Integer id, CientistaModel cientista);
 
-    @Transactional
     void deletarProjeto(ProjetoModel projeto);
 
 }

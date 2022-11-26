@@ -8,6 +8,6 @@ public interface AreaAtuacaoService {
 
     List<AreaAtuacaoModel> retornaTodasAreasAtuacao();
 
-    public AreaAtuacaoModel retornaAreaAtuacaoPorNome(String nome);
+    AreaAtuacaoModel retornaAreaAtuacaoPorNome(String nome);
 
 }
