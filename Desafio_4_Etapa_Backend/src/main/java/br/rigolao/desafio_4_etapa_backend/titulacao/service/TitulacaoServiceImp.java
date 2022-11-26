@@ -22,7 +22,7 @@ public class TitulacaoServiceImp extends LogUtil implements TitulacaoService{
 
     @Override
     @Transactional
-    public TitulacaoModel saveTitulacao(TitulacaoModel titulacaoModel) { //TODO - ARRUMAR
+    public TitulacaoModel saveTitulacao(TitulacaoModel titulacaoModel) {
         logInfo("Titulação " + titulacaoModel.getNome() + " salva!");
         return titulacaoRepository.save(titulacaoModel);
     }

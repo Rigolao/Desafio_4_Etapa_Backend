@@ -25,9 +25,9 @@ public class HandlerGeral extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<Object> handleGenericError(Exception ex) {
-//        return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleGenericError(Exception ex) {
+        return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 }
