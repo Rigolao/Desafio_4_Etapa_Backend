@@ -7,6 +7,7 @@ import br.rigolao.desafio_4_etapa_backend.projetos.repositories.ProjetosReposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,7 @@ public class ProjetoServiceImp implements ProjetosService{
     }
 
     @Override
+    @Transactional
     public void saveProjeto(ProjetoModel projeto) {
         projetosRepository.save(projeto);
     }
@@ -46,6 +48,7 @@ public class ProjetoServiceImp implements ProjetosService{
     }
 
     @Override
+    @Transactional
     public void deletarProjeto(ProjetoModel projeto) {
         projetosRepository.delete(projeto);
     }

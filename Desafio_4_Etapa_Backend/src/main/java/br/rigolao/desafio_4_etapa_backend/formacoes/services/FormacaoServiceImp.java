@@ -26,6 +26,7 @@ public class FormacaoServiceImp extends LogUtil implements FormacaoService{
     }
 
     @Override
+    @Transactional
     public void deleteFormacoes(FormacaoModel formacaoModel) {
         formacaoRepository.delete(formacaoModel);
         logInfo("Formação deletada!");
