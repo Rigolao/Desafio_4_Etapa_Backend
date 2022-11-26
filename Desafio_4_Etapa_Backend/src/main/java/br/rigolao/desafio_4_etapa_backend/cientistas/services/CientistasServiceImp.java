@@ -61,12 +61,6 @@ public class CientistasServiceImp extends LogUtil implements CientistasService{
     }
 
     @Override
-    public List<CientistaModel> retornaCientistasPorAreaAtuacao(AreaAtuacaoModel areaAtuacao) {
-        logInfo("Retornando todos os cientistas pela area de atuação: " + areaAtuacao.getNome());
-        return cientistasRepository.findAllByAreaAtuacaoCientista(areaAtuacao).orElse(Collections.emptyList());
-    }
-
-    @Override
     @Transactional
     public void editarCientista(CientistaModel cientistaModel) {
         CientistaModel cientistaModelTemp = cientistasRepository.findCientistaModelById(cientistaModel.getId())
