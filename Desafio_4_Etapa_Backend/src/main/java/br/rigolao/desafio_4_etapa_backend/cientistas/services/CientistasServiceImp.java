@@ -3,6 +3,7 @@ package br.rigolao.desafio_4_etapa_backend.cientistas.services;
 import br.rigolao.desafio_4_etapa_backend.areaAtuacao.services.AreaAtuacaoService;
 import br.rigolao.desafio_4_etapa_backend.areaAtuacaoCientista.services.AreaAtuacaoCientistaService;
 import br.rigolao.desafio_4_etapa_backend.cientistas.repositories.CientistasRepository;
+import br.rigolao.desafio_4_etapa_backend.exceptions.DataInvalidaException;
 import br.rigolao.desafio_4_etapa_backend.exceptions.EmailCadastradoException;
 import br.rigolao.desafio_4_etapa_backend.exceptions.LattesCadastradoException;
 import br.rigolao.desafio_4_etapa_backend.exceptions.UsuarioNaoEncontradoException;
@@ -13,11 +14,13 @@ import br.rigolao.desafio_4_etapa_backend.redesSociais.services.RedesSociaisServ
 import br.rigolao.desafio_4_etapa_backend.telefone.services.TelefoneService;
 import br.rigolao.desafio_4_etapa_backend.titulacao.service.TitulacaoService;
 import br.rigolao.desafio_4_etapa_backend.utils.LogUtil;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -74,6 +77,11 @@ public class CientistasServiceImp extends LogUtil implements CientistasService{
         if(cientistasRepository.existsByLattes(cientistaModel.getLattes()) &&
                 !cientistasRepository.existsByLattesAndId(cientistaModel.getLattes(), cientistaModel.getId())) {
             throw new LattesCadastradoException();
+        }
+
+        if(cientistaModel.getDataNascimento().after(new Date()) ||
+                DateUtils.isSameDay(cientistaModel.getDataNascimento(), new Date())) {
+            throw new DataInvalidaException();
         }
 
         if(cientistaModel.getTelefones() != null) {

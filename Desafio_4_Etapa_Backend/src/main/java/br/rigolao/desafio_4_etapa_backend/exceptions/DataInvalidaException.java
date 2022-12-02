@@ -4,4 +4,8 @@ public class DataInvalidaException extends RuntimeException{
     public DataInvalidaException() {
         super("Data inserida é inválida, por favor coloque uma data válida");
     }
+
+    public DataInvalidaException(String message) {
+        super(message);
+    }
 }

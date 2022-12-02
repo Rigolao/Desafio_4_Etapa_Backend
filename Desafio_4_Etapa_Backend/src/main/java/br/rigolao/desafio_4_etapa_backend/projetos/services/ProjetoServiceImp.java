@@ -1,9 +1,11 @@
 package br.rigolao.desafio_4_etapa_backend.projetos.services;
 
+import br.rigolao.desafio_4_etapa_backend.exceptions.DataInvalidaException;
 import br.rigolao.desafio_4_etapa_backend.exceptions.ProjetoNaoEncontradoException;
 import br.rigolao.desafio_4_etapa_backend.models.CientistaModel;
 import br.rigolao.desafio_4_etapa_backend.models.ProjetoModel;
 import br.rigolao.desafio_4_etapa_backend.projetos.repositories.ProjetosRepository;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,13 @@ public class ProjetoServiceImp implements ProjetosService{
     @Override
     @Transactional
     public void saveProjeto(ProjetoModel projeto) {
+        if(DateUtils.isSameDay(projeto.getDataInicio(), projeto.getDataTermino())) {
+            throw new DataInvalidaException("O projeto não pode começar e finalizar no mesmo dia!");
+        }
+
+        if(projeto.getDataTermino().before(projeto.getDataInicio())) {
+            throw new DataInvalidaException("A data de termino do projeto não pode ser anterior a de inicio!");
+        }
         projetosRepository.save(projeto);
     }
 
