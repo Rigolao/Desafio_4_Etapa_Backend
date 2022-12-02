@@ -86,6 +86,10 @@ public class AutenticacaoHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleEmailCadastradoException(EmailCadastradoException ex) {
         return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
+    @ExceptionHandler(DataInvalidaException.class)
+    public ResponseEntity<Object> handleDataInvalidaException(DataInvalidaException ex) {
+        return new ResponseEntity<>(_fillErrorBodyMessage(ex.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
 
     @ExceptionHandler(LattesCadastradoException.class)
     public ResponseEntity<Object> handleLattesCadastradoException(LattesCadastradoException ex) {

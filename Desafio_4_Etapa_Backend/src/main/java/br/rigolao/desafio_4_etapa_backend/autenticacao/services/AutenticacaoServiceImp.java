@@ -15,6 +15,7 @@ import br.rigolao.desafio_4_etapa_backend.redesSociais.services.RedesSociaisServ
 import br.rigolao.desafio_4_etapa_backend.telefone.services.TelefoneService;
 import br.rigolao.desafio_4_etapa_backend.titulacao.service.TitulacaoService;
 import br.rigolao.desafio_4_etapa_backend.utils.LogUtil;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,6 +23,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -112,6 +114,10 @@ public class AutenticacaoServiceImp extends LogUtil implements UserDetailsServic
         }
         if(autenticacaoRepository.existsByLattes(cientista.getLattes())){
             throw new LattesCadastradoException();
+        }
+        if(cientista.getDataNascimento().after(new Date()) ||
+                DateUtils.isSameDay(cientista.getDataNascimento(), new Date())) {
+            throw new DataInvalidaException();
         }
         logInfo("Cientista salvo no banco de dados");
         return autenticacaoRepository.save(cientista);
