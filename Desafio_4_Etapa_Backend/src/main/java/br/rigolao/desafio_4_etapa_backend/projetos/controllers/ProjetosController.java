@@ -87,6 +87,7 @@ public class ProjetosController extends LogUtil {
         return projetoModels.stream().map(projetoModel -> {
             ProjetoDTO projetoDTO = ObjectMapperUtil.map(projetoModel, ProjetoDTO.class);
             BeanUtils.copyProperties(projetoModel.getCientista(), projetoDTO);
+            projetoDTO.setIdProjeto(projetoModel.getId());
             return projetoDTO;
         }).collect(Collectors.toList());
     }

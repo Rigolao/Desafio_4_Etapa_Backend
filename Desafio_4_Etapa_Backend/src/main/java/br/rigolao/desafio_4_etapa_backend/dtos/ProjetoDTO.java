@@ -18,6 +18,8 @@ public class ProjetoDTO {
 
     private Integer id;
 
+    private Integer idProjeto;
+
     private String titulo;
 
     private String sobre;
