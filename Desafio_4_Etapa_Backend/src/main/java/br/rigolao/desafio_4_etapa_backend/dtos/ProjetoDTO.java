@@ -36,7 +36,6 @@ public class ProjetoDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataTermino;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull(message = "O projeto precisa ter sua disponibilidade")
     private Boolean publico;
 
