@@ -64,6 +64,12 @@ public class CientistasServiceImp extends LogUtil implements CientistasService{
     }
 
     @Override
+    public CientistaModel retornaCientistaPorCpf(String cpf) {
+        logInfo("Retornando cientista pelo cpf: " + cpf);
+        return cientistasRepository.findByCpf(cpf).orElseThrow(UsuarioNaoEncontradoException::new);
+    }
+
+    @Override
     @Transactional
     public void editarCientista(CientistaModel cientistaModel) {
         CientistaModel cientistaModelTemp = cientistasRepository.findCientistaModelById(cientistaModel.getId())

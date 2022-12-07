@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 @RestController
@@ -46,6 +48,22 @@ public class CientistasController {
                 cientistasService.retornaCientistaPorNome(nomeCientista).stream().map(
                         cientistaModel -> CientistaUtil.preencherCiestistaDTO(new CientistaDTO(), cientistaModel)
                 ).collect(Collectors.toList()));
+    }
+
+    @PostMapping(value = "/retornaPerfil/{cpfCientista}")
+    public ResponseEntity<?> retornaMinhasInformacoes(@PathVariable(value = "cpfCientista") String cpfCientista,
+                                                      @RequestHeader("Authorization") String token) {
+        CientistaModel cientistaModel = autenticacaoService.loadUserByCpf(cpfCientista);
+
+        if(cientistaModel.equals(autenticacaoService.loadUserByCpf(jwtTokenUtil.getSubjectFromToken(token))) &&
+                cpfCientista.equals(cientistaModel.getCpf())) {
+            CientistaDTO cientistaFinal = CientistaUtil.preencherCiestistaDTO(new CientistaDTO(),
+                    cientistasService.retornaCientistaPorCpf(cpfCientista));
+            cientistaFinal.setProjetos(Collections.emptyList());
+            return ResponseEntity.ok(cientistaFinal);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("Usuário não permitido a editar");
+        }
     }
 
     @PutMapping(value = "/editarPerfil/{cpfCientista}")

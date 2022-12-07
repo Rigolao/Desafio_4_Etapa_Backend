@@ -16,6 +16,8 @@ public interface CientistasRepository extends JpaRepository<CientistaModel, Inte
 
     Optional<CientistaModel> findCientistaModelById(Integer id);
 
+    Optional<CientistaModel> findByCpf(String cpf);
+
     boolean existsByEmail(String email);
 
     boolean existsByEmailAndId(String email, Integer id);

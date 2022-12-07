@@ -11,6 +11,8 @@ public interface CientistasService {
 
     List<CientistaModel> retornaCientistaPorNome(String nomeCientista);
 
+    CientistaModel retornaCientistaPorCpf(String cpf);
+
     void editarCientista(CientistaModel cientistaModel);
 
 }
