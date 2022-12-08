@@ -50,7 +50,7 @@ public class CientistasController {
                 ).collect(Collectors.toList()));
     }
 
-    @PostMapping(value = "/retornaPerfil/{cpfCientista}")
+    @GetMapping(value = "/retornaPerfil/{cpfCientista}")
     public ResponseEntity<?> retornaMinhasInformacoes(@PathVariable(value = "cpfCientista") String cpfCientista,
                                                       @RequestHeader("Authorization") String token) {
         CientistaModel cientistaModel = autenticacaoService.loadUserByCpf(cpfCientista);
