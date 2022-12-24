@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Data
@@ -20,8 +21,10 @@ public class ProjetoDTO {
 
     private Integer idProjeto;
 
+    @Size(max = 50, message = "O título deve ter no máximo 50 caracteres!")
     private String titulo;
 
+    @Size(max = 250, message = "O sobre deve ter no máximo 250 caracteres!")
     private String sobre;
 
     private String nome;

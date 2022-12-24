@@ -43,7 +43,6 @@ public class CientistaDTO {
     @NotBlank(message = "Lattes é obrigatório")
     private String lattes;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(message = "Senha é obrigatória")
     private String snh;
 
